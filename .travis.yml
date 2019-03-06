@@ -9,8 +9,8 @@ env:
 
 script:
   - export TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH ; fi`
-  - docker build -t $RUBY_REPO:$TRAVIS_BUILD_NUMBER -t $RUBY_REPO:$TAG ./client
-  - docker build -t $RUBY_NODE_REPO:$TRAVIS_BUILD_NUMBER -t $RUBY_NODE_REPO:$TAG ./server
+  - docker build -t $RUBY_REPO:$TRAVIS_BUILD_NUMBER -t $RUBY_REPO:$TAG ./Ruby231
+  - docker build -t $RUBY_NODE_REPO:$TRAVIS_BUILD_NUMBER -t $RUBY_NODE_REPO:$TAG ./Ruby231-Node670
   # Login to Docker Hub
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
   # Push images to Docker Hub
