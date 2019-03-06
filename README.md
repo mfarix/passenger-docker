@@ -1,4 +1,5 @@
 # Docker base images for Ruby and Node.js apps running on Passenger
+[![Build Status](https://travis-ci.com/mfarix/passenger-docker.svg?branch=master)](https://travis-ci.com/mfarix/passenger-docker)
 
 Passenger-docker is a [Docker](https://www.docker.com) images meant to serve as good bases for **Ruby and Node.js** web app images.
 

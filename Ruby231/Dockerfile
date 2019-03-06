@@ -26,8 +26,7 @@ RUN echo "deb [trusted=yes] https://oss-binaries.phusionpassenger.com/apt/passen
 # Yarn installation of latest stable release
 RUN apt-get update && \
     apt-get install -qq -y --fix-missing --no-install-recommends \
-                    build-essential \
-                    tzdata
+                    build-essential
 
 # Clean up APT when done.
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*

@@ -30,7 +30,6 @@ RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources
 RUN apt-get update && \
     apt-get install -qq -y --fix-missing --no-install-recommends \
                     build-essential \
-                    tzdata \
                     yarn
 
 # Clean up APT when done.
