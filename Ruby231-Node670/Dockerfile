@@ -4,7 +4,7 @@ FROM phusion/passenger-customizable:1.0.0
 # See https://github.com/phusion/passenger-docker/blob/master/Changelog.md for
 # a list of version numbers.
 
-LABEL maintainer="Mohamed Fariz Nazeer <fariz@kaodim.com>"
+LABEL maintainer="Mohamed Fariz Nazeer <faariz@gmail.com>"
 
 # Set root directory.
 ENV HOME /root
@@ -27,19 +27,19 @@ RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources
 
 # Install build dependencies
 # Yarn installation of latest stable release
+# Clean up APT when done.
 RUN apt-get update && \
     apt-get install -qq -y --fix-missing --no-install-recommends \
                     build-essential \
-                    yarn
-
-# Clean up APT when done.
-RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+                    yarn && \
+    apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 ###############################################################################
 
 # Install Ruby 2.3.1
-RUN bash -lc 'rvm install ruby-2.3.1'
-RUN bash -lc 'rvm --default use ruby-2.3.1'
+RUN bash -lc 'rvm install ruby-2.3.1' && \
+    bash -lc 'rvm cleanup all' && \
+    bash -lc 'rvm --default use ruby-2.3.1'
 
 ###############################################################################
 
@@ -59,15 +59,15 @@ RUN . $NVM_DIR/nvm.sh && \
     nvm alias default $NODE_VERSION && \
     nvm use default
 # Set Node.js binary executible
-RUN ln -sf $NVM_DIR/versions/node/v$NODE_VERSION/bin/node /usr/bin/nodejs
-RUN ln -sf $NVM_DIR/versions/node/v$NODE_VERSION/bin/node /usr/bin/node
-RUN ln -sf $NVM_DIR/versions/node/v$NODE_VERSION/bin/npm /usr/bin/npm
+RUN ln -sf $NVM_DIR/versions/node/v$NODE_VERSION/bin/node /usr/bin/nodejs && \
+    ln -sf $NVM_DIR/versions/node/v$NODE_VERSION/bin/node /usr/bin/node && \
+    ln -sf $NVM_DIR/versions/node/v$NODE_VERSION/bin/npm /usr/bin/npm
 
 ###############################################################################
 
 # Enable Nginx and Passenger
-RUN rm -f /etc/service/nginx/down
-RUN rm /etc/nginx/sites-enabled/default
+RUN rm -f /etc/service/nginx/down && \
+    rm /etc/nginx/sites-enabled/default
 
 # Set default value for environment variables for
 # RAILS_ENV, RACK_ENV, WSGI_ENV, NODE_ENV, PASSENGER_APP_ENV
