@@ -75,4 +75,4 @@ EXPOSE 80
 
 # Use baseimage-docker's init process.
 # Runs files in /etc/my_init.d in lexicographic order.
-CMD ["/sbin/my_init"]
+ENTRYPOINT ["/sbin/my_init"]
