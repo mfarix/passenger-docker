@@ -6,29 +6,21 @@ FROM phusion/passenger-customizable:1.0.0
 
 LABEL maintainer="Mohamed Fariz Nazeer <faariz@gmail.com>"
 
+###############################################################################
+
+#Set default shell to Bash
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+
 # Set root directory.
 ENV HOME /root
 
-# Use baseimage-docker's init process.
-# Runs files in /etc/my_init.d in lexicographic order.
-CMD ["/sbin/my_init"]
-
-###############################################################################
-
 # Install OS dependencies for compiling the application
 
-# Add Passenger APT repository
-# Fix gpg verification error while running apt-get uodate
-RUN echo "deb [trusted=yes] https://oss-binaries.phusionpassenger.com/apt/passenger $(lsb_release -cs) main" \
-    > /etc/apt/sources.list.d/passenger.list
-
 # Install build dependencies
-# Yarn installation of latest stable release
 # Clean up APT when done.
 RUN apt-get update && \
-    apt-get install -qq -y --fix-missing --no-install-recommends \
-                    build-essential \
-                    yarn && \
+    apt-get install -y --fix-missing --no-install-recommends \
+                    build-essential=12.4ubuntu1 && \
     apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 ###############################################################################
@@ -51,3 +43,7 @@ RUN echo "passenger_app_env production;" > /etc/nginx/conf.d/00_app_env.conf
 
 # Open Port
 EXPOSE 80
+
+# Use baseimage-docker's init process.
+# Runs files in /etc/my_init.d in lexicographic order.
+ENTRYPOINT ["/sbin/my_init"]
