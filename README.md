@@ -1,5 +1,8 @@
 # Docker base images for Ruby and Node.js apps running on Passenger
-[![Build Status](https://travis-ci.com/mfarix/passenger-docker.svg?branch=master)](https://travis-ci.com/mfarix/passenger-docker)
+Edition|Build|Size|Version|Docker Hub
+---|---|---|---|---
+ruby231 | [![Build Status](https://travis-ci.com/mfarix/passenger-docker.svg?branch=master)](https://travis-ci.com/mfarix/passenger-docker) | [![](https://images.microbadger.com/badges/image/mfarix/passenger-ruby231.svg)](https://microbadger.com/images/mfarix/passenger-ruby231) | [![](https://images.microbadger.com/badges/version/mfarix/passenger-ruby231.svg)](https://microbadger.com/images/mfarix/passenger-ruby231) | [ruby231](https://hub.docker.com/r/mfarix/passenger-ruby231)
+ruby231-node670 | [![Build Status](https://travis-ci.com/mfarix/passenger-docker.svg?branch=master)](https://travis-ci.com/mfarix/passenger-docker) | [![](https://images.microbadger.com/badges/image/mfarix/passenger-ruby231-node670.svg)](https://microbadger.com/images/mfarix/passenger-ruby231-node670) | [![](https://images.microbadger.com/badges/version/mfarix/passenger-ruby231-node670.svg)](https://microbadger.com/images/mfarix/passenger-ruby231-node670) | [ruby231-node670](https://hub.docker.com/r/mfarix/passenger-ruby231-node670)
 
 Passenger-docker is a [Docker](https://www.docker.com) images meant to serve as good bases for **Ruby and Node.js** web app images.
 
