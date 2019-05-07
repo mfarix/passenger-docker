@@ -16,3 +16,7 @@ script:
   # Push images to Docker Hub
   - docker push $RUBY_REPO
   - docker push $RUBY_NODE_REPO
+
+branches:
+  only:
+    - master
