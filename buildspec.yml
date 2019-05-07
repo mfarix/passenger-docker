@@ -12,13 +12,11 @@ phases:
       - CODEBUILD_SHA1=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
   build:
     commands:
-      - echo Build started on `date`
       - echo Building the Docker image...
       - docker build -t $RUBY_REPO:$CODEBUILD_SHA1 ./Ruby231
       - docker build -t $RUBY_NODE_REPO:$CODEBUILD_SHA1 ./Ruby231-Node670
   post_build:
     commands:
-      - echo Build completed on `date`
       - echo Pushing the Docker images...
       - docker push $RUBY_REPO
       - docker push $RUBY_NODE_REPO
