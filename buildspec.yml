@@ -14,12 +14,10 @@ phases:
     commands:
       - echo Building the Docker image...
       - |
-        docker build --cache-from $RUBY_REPO:codebuild \
-                     --tag $RUBY_REPO:codebuild \
+        docker build --tag $RUBY_REPO:codebuild \
                      --tag $RUBY_REPO:$CODEBUILD_SHA1 ./Ruby231
       - |
-        docker build --cache-from $RUBY_NODE_REPO:codebuild \
-                     --tag $RUBY_NODE_REPO:codebuild \
+        docker build --tag $RUBY_NODE_REPO:codebuild \
                      --tag $RUBY_NODE_REPO:$CODEBUILD_SHA1 ./Ruby231-Node670
   post_build:
     commands:
