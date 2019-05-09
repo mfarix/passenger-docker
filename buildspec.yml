@@ -14,6 +14,9 @@ phases:
     commands:
       - echo Building the Docker image...
       - |
+        docker pull $RUBY_REPO:ruby-codebuild
+        docker pull $RUBY_NODE_REPO:ruby-node-codebuild
+      - |
         docker build --cache-from $RUBY_REPO:ruby-codebuild \
                      --tag $RUBY_REPO:ruby-codebuild \
                      --tag $RUBY_REPO:$CODEBUILD_SHA1 ./Ruby231
