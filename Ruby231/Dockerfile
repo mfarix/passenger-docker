@@ -18,10 +18,19 @@ ENV HOME /root
 
 # Install build dependencies
 # Clean up APT when done.
-RUN apt-get update && \
-    apt-get install -y --fix-missing --no-install-recommends \
-                    build-essential=12.4ubuntu1 && \
-    apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+RUN apt-get update -qq --fix-missing && \
+    apt-get install -qq -y --fix-missing --no-install-recommends \
+                    build-essential=12.4ubuntu1 \
+                    tzdata=*-0ubuntu0.18.04 \
+                    nano=2.9.* \
+                    monit=1:5.25.1-1build1 && \
+    apt-get autoremove -q -y && apt-get clean && \
+    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+# Set timezone for tzdata
+ENV TZ=Asia/Kuala_Lumpur
+RUN ln -fs /usr/share/zoneinfo/$TZ /etc/localtime && \
+    echo $TZ > /etc/timezone
 
 ###############################################################################
 
@@ -33,8 +42,8 @@ RUN bash -lc 'rvm install ruby-2.3.1' && \
 ###############################################################################
 
 # Enable Nginx and Passenger
-RUN rm -f /etc/service/nginx/down && \
-    rm /etc/nginx/sites-enabled/default
+RUN rm -f /etc/service/nginx/down \
+          /etc/nginx/sites-enabled/default
 
 # Set default value for environment variables for
 # RAILS_ENV, RACK_ENV, WSGI_ENV, NODE_ENV, PASSENGER_APP_ENV

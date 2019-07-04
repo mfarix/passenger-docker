@@ -16,18 +16,21 @@ ENV HOME /root
 
 # Install OS dependencies for compiling the application
 
-# Add Yarn APT repository
-RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
-    echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
-
 # Install build dependencies
-# Yarn installation of latest stable release
 # Clean up APT when done.
-RUN apt-get update && \
+RUN apt-get update -qq --fix-missing && \
     apt-get install -qq -y --fix-missing --no-install-recommends \
                     build-essential=12.4ubuntu1 \
-                    yarn=1.13.0-1 && \
-    apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+                    tzdata=*-0ubuntu0.18.04 \
+                    nano=2.9.* \
+                    monit=1:5.25.1-1build1 && \
+    apt-get autoremove -q -y && apt-get clean && \
+    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+# Set timezone for tzdata
+ENV TZ=Asia/Kuala_Lumpur
+RUN ln -fs /usr/share/zoneinfo/$TZ /etc/localtime && \
+    echo $TZ > /etc/timezone
 
 ###############################################################################
 
@@ -62,8 +65,8 @@ RUN ln -sf $NVM_DIR/versions/node/v$NODE_VERSION/bin/node /usr/bin/nodejs && \
 ###############################################################################
 
 # Enable Nginx and Passenger
-RUN rm -f /etc/service/nginx/down && \
-    rm /etc/nginx/sites-enabled/default
+RUN rm -f /etc/service/nginx/down \
+          /etc/nginx/sites-enabled/default
 
 # Set default value for environment variables for
 # RAILS_ENV, RACK_ENV, WSGI_ENV, NODE_ENV, PASSENGER_APP_ENV
